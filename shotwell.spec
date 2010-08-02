@@ -1,20 +1,25 @@
+# TODO:
+# - Fix libraw package that 0.6.x depends now on
+
 Summary:	Photo manager for GNOME
 Name:		shotwell
-Version:	0.5.2
-Release:	1
+Version:	0.6.1
+Release:	0.1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
-Source0:	http://yorba.org/download/shotwell/0.5/%{name}-%{version}.tar.bz2
-# Source0-md5:	a347765f3a6ae8408a97d559ed50b0b8
+Source0:	http://yorba.org/download/shotwell/0.6/%{name}-%{version}.tar.bz2
+# Source0-md5:	440436e8f1479a5da2599065705b0ca4
 URL:		http://yorba.org/shotwell/
-BuildRequires:	GConf2-devel >= 2.22.0
 BuildRequires:	dbus-glib-devel >= 0.80.0
+BuildRequires:	GConf2-devel >= 2.22.0
 BuildRequires:	gettext-devel
+BuildRequires:	gexiv2-devel
 BuildRequires:	gtk+2-devel >= 2:2.14.4
 BuildRequires:	gtk-webkit-devel >= 1.1.5
 BuildRequires:	libexif-devel >= 0.6.16
 BuildRequires:	libgee-devel >= 0.5.0
 BuildRequires:	libgphoto2-devel >= 2.4.2
+BuildRequires:	libraw-devel
 BuildRequires:	libsoup-devel >= 2.26.0
 BuildRequires:	libunique-devel >= 1.0.0
 BuildRequires:	libusb-compat-devel
