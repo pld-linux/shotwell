@@ -1,14 +1,11 @@
-# TODO:
-# - Fix libraw package that 0.6.x depends now on
-
 Summary:	Photo manager for GNOME
 Name:		shotwell
-Version:	0.6.1
-Release:	0.1
+Version:	0.7.1
+Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
-Source0:	http://yorba.org/download/shotwell/0.6/%{name}-%{version}.tar.bz2
-# Source0-md5:	440436e8f1479a5da2599065705b0ca4
+Source0:	http://yorba.org/download/shotwell/0.7/%{name}-%{version}.tar.bz2
+# Source0-md5:	78b72eef6d132be383191d3c3d5fef24
 URL:		http://yorba.org/shotwell/
 BuildRequires:	dbus-glib-devel >= 0.80.0
 BuildRequires:	GConf2-devel >= 2.22.0
@@ -60,7 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%find_lang shotwell
+%find_lang shotwell --with-gnome
 
 %clean
 rm -rf $RPM_BUILD_ROOT
