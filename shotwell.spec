@@ -1,11 +1,12 @@
 Summary:	Photo manager for GNOME
 Name:		shotwell
-Version:	0.8.1
-Release:	3
+Version:	0.9.0
+Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
-Source0:	http://yorba.org/download/shotwell/0.8/%{name}-%{version}.tar.bz2
-# Source0-md5:	378168735006dfe0733431dd47f870c4
+Source0:	http://yorba.org/download/shotwell/0.9.0/%{name}-%{version}.tar.bz2
+# Source0-md5:	6701d9a7c0a2f4f720fdeed1d6e54758
+Patch0:		%{name}-cflags.patch
 URL:		http://yorba.org/shotwell/
 BuildRequires:	GConf2-devel >= 2.22.0
 BuildRequires:	dbus-glib-devel >= 0.80.0
@@ -26,7 +27,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.5.9
 BuildRequires:	udev-glib-devel >= 145
-BuildRequires:	vala >= 0.8.0
+BuildRequires:	vala >= 0.11.7
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
@@ -42,6 +43,7 @@ mode, and export them to share with others.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 ./configure \
@@ -49,6 +51,7 @@ mode, and export them to share with others.
 	--disable-schemas-install \
 	--disable-desktop-update \
 	--disable-icon-update
+
 %{__make} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}"
@@ -58,6 +61,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+rm -r $RPM_BUILD_ROOT%{_localedir}/te_IN
 
 %find_lang shotwell --with-gnome
 
@@ -79,9 +84,15 @@ rm -rf $RPM_BUILD_ROOT
 %files -f shotwell.lang
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING MAINTAINERS NEWS README THANKS
-%attr(755,root,root) %{_bindir}/shotwell
-%{_desktopdir}/shotwell-viewer.desktop
-%{_desktopdir}/shotwell.desktop
-%{_datadir}/shotwell
-%{_sysconfdir}/gconf/schemas/shotwell.schemas
+%attr(755,root,root) %{_bindir}/%{name}
+%{_desktopdir}/%{name}-viewer.desktop
+%{_desktopdir}/%{name}.desktop
+%{_datadir}/%{name}
+%dir %{_libdir}/%{name}
+%dir %{_libdir}/%{name}/plugins
+%dir %{_libdir}/%{name}/plugins/builtin
+%{_libdir}/%{name}/plugins/builtin/*.png
+%{_libdir}/%{name}/plugins/builtin/*.glade
+%attr(755,root,root) %{_libdir}/%{name}/plugins/builtin/*.so
+%{_sysconfdir}/gconf/schemas/%{name}.schemas
 %{_iconsdir}/hicolor/*/*/*.svg
