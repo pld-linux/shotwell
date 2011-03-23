@@ -4,7 +4,7 @@ Version:	0.9.0
 Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
-Source0:	http://yorba.org/download/shotwell/0.9.0/%{name}-%{version}.tar.bz2
+Source0:	http://yorba.org/download/shotwell/0.9/%{name}-%{version}.tar.bz2
 # Source0-md5:	6701d9a7c0a2f4f720fdeed1d6e54758
 Patch0:		%{name}-cflags.patch
 URL:		http://yorba.org/shotwell/
