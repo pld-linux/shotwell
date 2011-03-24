@@ -9,6 +9,7 @@ Source0:	http://yorba.org/download/shotwell/0.9/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-cflags.patch
 URL:		http://yorba.org/shotwell/
 BuildRequires:	GConf2-devel >= 2.22.0
+BuildRequires:	bash
 BuildRequires:	dbus-glib-devel >= 0.80.0
 BuildRequires:	gettext-devel
 BuildRequires:	gexiv2-devel >= 0.2.2
@@ -23,6 +24,7 @@ BuildRequires:	libsoup-devel >= 2.26.0
 BuildRequires:	libunique-devel >= 1.0.0
 BuildRequires:	libusb-compat-devel
 BuildRequires:	libxml2-devel >= 1:2.6.32
+BuildRequires:	m4
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.5.9
@@ -46,6 +48,7 @@ mode, and export them to share with others.
 %patch0 -p1
 
 %build
+# this is not autoconf generated
 ./configure \
 	--prefix=%{_prefix} \
 	--disable-schemas-install \
@@ -60,7 +63,8 @@ mode, and export them to share with others.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	LIB=%{_lib}
 
 rm -r $RPM_BUILD_ROOT%{_localedir}/te_IN
 
