@@ -58,8 +58,8 @@ mode, and export them to share with others.
 
 %{__make} \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags}" \
-	PLUGIN_CFLAGS="%{rpmcflags}"
+	CFLAGS="%{rpmcflags} -fPIC" \
+	PLUGIN_CFLAGS="%{rpmcflags} -fPIC"
 
 %install
 rm -rf $RPM_BUILD_ROOT
