@@ -1,11 +1,11 @@
 Summary:	Photo manager for GNOME
 Name:		shotwell
-Version:	0.9.0
+Version:	0.9.1
 Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	http://yorba.org/download/shotwell/0.9/%{name}-%{version}.tar.bz2
-# Source0-md5:	6701d9a7c0a2f4f720fdeed1d6e54758
+# Source0-md5:	1a98d1da59424a67b310cc39e8ad3368
 Patch0:		%{name}-cflags.patch
 URL:		http://yorba.org/shotwell/
 BuildRequires:	GConf2-devel >= 2.22.0
@@ -51,22 +51,21 @@ mode, and export them to share with others.
 # this is not autoconf generated
 ./configure \
 	--prefix=%{_prefix} \
+	--lib=%{_lib} \
 	--disable-schemas-install \
 	--disable-desktop-update \
 	--disable-icon-update
 
 %{__make} \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags}"
+	CFLAGS="%{rpmcflags}" \
+	PLUGIN_CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	LIB=%{_lib}
-
-rm -r $RPM_BUILD_ROOT%{_localedir}/te_IN
+	DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang shotwell --with-gnome
 
