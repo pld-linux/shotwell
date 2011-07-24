@@ -12,7 +12,6 @@ BuildRequires:	GConf2-devel >= 2.22.0
 BuildRequires:	bash
 BuildRequires:	dbus-glib-devel >= 0.80.0
 BuildRequires:	gettext-devel
-BuildRequires:	gexiv2-devel >= 0.2.2
 BuildRequires:	gtk+2-devel >= 2:2.14.4
 BuildRequires:	gtk-webkit-devel >= 1.1.5
 BuildRequires:	json-glib-devel
@@ -30,6 +29,7 @@ BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.5.9
 BuildRequires:	udev-glib-devel >= 145
 BuildRequires:	vala >= 1:0.11.7
+BuildRequires:	vala-gexiv2 >= 0.2.2
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang shotwell --with-gnome
+%find_lang shotwell-extras
+
+cat shotwell.lang shotwell-extras.lang > shotwell-all.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -84,7 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 %update_icon_cache hicolor
 %update_desktop_database_postun
 
-%files -f shotwell.lang
+%files -f shotwell-all.lang
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING MAINTAINERS NEWS README THANKS
 %attr(755,root,root) %{_bindir}/shotwell*
