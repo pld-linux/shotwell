@@ -1,11 +1,11 @@
 Summary:	Photo manager for GNOME
 Name:		shotwell
-Version:	0.10.1
+Version:	0.11.0
 Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
-Source0:	http://yorba.org/download/shotwell/0.10/%{name}-%{version}.tar.bz2
-# Source0-md5:	ef75923257e8554d14a6545c83406700
+Source0:	http://yorba.org/download/shotwell/0.11/%{name}-%{version}.tar.bz2
+# Source0-md5:	f0e942b639d899a91c3cf343f6f553bb
 Patch0:		%{name}-cflags.patch
 URL:		http://yorba.org/shotwell/
 BuildRequires:	GConf2-devel >= 2.22.0
@@ -94,6 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/%{name}-viewer.desktop
 %{_desktopdir}/%{name}.desktop
 %{_datadir}/%{name}
+%{_datadir}/GConf/gsettings/*.convert
+%{_datadir}/glib-2.0/schemas/*.gschema.xml
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plugins
 %dir %{_libdir}/%{name}/plugins/builtin

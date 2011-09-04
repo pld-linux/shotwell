@@ -1,5 +1,6 @@
---- shotwell-0.9.1/plugins/Makefile.plugin.mk.orig	2011-04-04 19:54:27.000000000 +0200
-+++ shotwell-0.9.1/plugins/Makefile.plugin.mk	2011-04-05 08:52:34.000000000 +0200
+diff -Nur shotwell-0.11.0.orig/plugins/Makefile.plugin.mk shotwell-0.11.0/plugins/Makefile.plugin.mk
+--- shotwell-0.11.0.orig/plugins/Makefile.plugin.mk	2011-08-23 19:19:18.000000000 +0100
++++ shotwell-0.11.0/plugins/Makefile.plugin.mk	2011-09-04 21:31:10.000000000 +0100
 @@ -32,8 +32,8 @@
  CFILES := $(notdir $(SRC_FILES:.vala=.c))
  OFILES := $(notdir $(SRC_FILES:.vala=.o))
@@ -19,8 +20,8 @@
 +	$(CC) -c $(LOCAL_CFLAGS) $(DEFINES) -I../.. $(CFILES)
  
  $(PLUGIN).so: $(OFILES)
--	$(CC) $(CFLAGS) $(LDFLAGS) $(OFILES) -I../.. -shared -o $@
-+	$(CC) $(LOCAL_CFLAGS) $(LOCAL_LDFLAGS) $(OFILES) -I../.. -shared -o $@
+-	$(CC) $(CFLAGS) -Wl,--no-as-needed $(LDFLAGS) $(OFILES) -I../.. -shared -o $@
++	$(CC) $(LOCAL_CFLAGS) -Wl,--no-as-needed $(LOCAL_LDFLAGS) $(OFILES) -I../.. -shared -o $@
  
  .PHONY: cleantemps
  cleantemps:
