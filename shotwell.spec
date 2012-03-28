@@ -1,26 +1,29 @@
 Summary:	Photo manager for GNOME
 Name:		shotwell
-Version:	0.11.6
-Release:	1
+Version:	0.12.0
+Release:	0.1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
-Source0:	http://yorba.org/download/shotwell/0.11/%{name}-%{version}.tar.bz2
-# Source0-md5:	bbbf2843eb98b6f0ef1dfcfb934e15cf
+Source0:	http://yorba.org/download/shotwell/0.12/%{name}-%{version}.tar.bz2
+# Source0-md5:	50aa5b48a6c0d337ef584da90e7eec67
 Patch0:		%{name}-cflags.patch
 URL:		http://yorba.org/shotwell/
-BuildRequires:	GConf2-devel >= 2.22.0
+# The dependencies are listed in Makefile
+BuildRequires:	GConf2-devel >= 3.0
 BuildRequires:	bash
-BuildRequires:	dbus-glib-devel >= 0.80.0
 BuildRequires:	gettext-devel
-BuildRequires:	gtk+2-devel >= 2:2.14.4
-BuildRequires:	gtk-webkit-devel >= 1.1.5
-BuildRequires:	json-glib-devel
+BuildRequires:	glib2-devel >= 2.30.0
+BuildRequires:	gstreamer-devel >= 0.10.28
+BuildRequires:	gstreamer-plugins-base-devel >= 0.10.32
+BuildRequires:	gtk+3-devel >= 3.0.11
+BuildRequires:	gtk-webkit3-devel >= 1.4.0
+BuildRequires:	json-glib-devel >= 0.6.16
 BuildRequires:	libexif-devel >= 0.6.16
 BuildRequires:	libgee-devel >= 0.5.0
 BuildRequires:	libgphoto2-devel >= 2.4.2
-BuildRequires:	libraw-devel
+BuildRequires:	libraw-devel >= 0.9.0
 BuildRequires:	libsoup-devel >= 2.26.0
-BuildRequires:	libunique-devel >= 1.0.0
+BuildRequires:	libunique3-devel >= 3.0.0
 BuildRequires:	libusb-compat-devel
 BuildRequires:	libxml2-devel >= 1:2.6.32
 BuildRequires:	m4
@@ -28,9 +31,8 @@ BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.5.9
 BuildRequires:	udev-glib-devel >= 145
-BuildRequires:	vala >= 1:0.11.7
-BuildRequires:	vala < 1:0.13.0
-BuildRequires:	vala-gexiv2 >= 0.2.2
+BuildRequires:	vala >= 1:0.15.2
+BuildRequires:	vala-gexiv2 >= 0.3.92
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
@@ -46,7 +48,7 @@ mode, and export them to share with others.
 
 %prep
 %setup -q
-%patch0 -p1
+#%patch0 -p1
 
 %build
 # this is not autoconf generated
@@ -59,8 +61,8 @@ mode, and export them to share with others.
 
 %{__make} \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -fPIC" \
-	PLUGIN_CFLAGS="%{rpmcflags} -fPIC"
+	CFLAGS="%{rpmcflags}" \
+	PLUGIN_CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
