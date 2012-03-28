@@ -1,27 +1,13 @@
-diff -Nur shotwell-0.11.0.orig/plugins/Makefile.plugin.mk shotwell-0.11.0/plugins/Makefile.plugin.mk
---- shotwell-0.11.0.orig/plugins/Makefile.plugin.mk	2011-08-23 19:19:18.000000000 +0100
-+++ shotwell-0.11.0/plugins/Makefile.plugin.mk	2011-09-04 21:31:10.000000000 +0100
-@@ -32,8 +32,8 @@
- CFILES := $(notdir $(SRC_FILES:.vala=.c))
- OFILES := $(notdir $(SRC_FILES:.vala=.o))
+--- shotwell-0.12.0/Makefile.orig	2012-03-27 22:59:45.000000000 +0200
++++ shotwell-0.12.0/Makefile	2012-03-28 09:23:30.000000000 +0200
+@@ -424,8 +424,8 @@
+ CFLAGS = -O0 -g -pipe
+ PLUGIN_CFLAGS = -O0 -g -pipe
+ else
+-CFLAGS = -O2 -g -pipe
+-PLUGIN_CFLAGS = -O2 -g -pipe
++CFLAGS = $(RPMCFLAGS)
++PLUGIN_CFLAGS = $(RPMCFLAGS)
+ endif
+ endif
  
--CFLAGS := `pkg-config --print-errors --cflags $(EXT_PKGS)` -nostdlib -export-dynamic $(PLUGIN_CFLAGS)
--LDFLAGS := `pkg-config --print-errors --libs $(EXT_PKGS)` $(LDFLAGS)
-+LOCAL_CFLAGS := `pkg-config --print-errors --cflags $(EXT_PKGS)` -nostdlib -export-dynamic $(PLUGIN_CFLAGS)
-+LOCAL_LDFLAGS := `pkg-config --print-errors --libs $(EXT_PKGS)` $(LDFLAGS)
- DEFINES := -D_VERSION='"$(PLUGINS_VERSION)"' -DGETTEXT_PACKAGE='"shotwell"'
- 
- all: $(PLUGIN).so
-@@ -51,10 +51,10 @@
- 	@
- 
- $(OFILES): %.o: %.c $(CFILES)
--	$(CC) -c $(CFLAGS) $(DEFINES) -I../.. $(CFILES)
-+	$(CC) -c $(LOCAL_CFLAGS) $(DEFINES) -I../.. $(CFILES)
- 
- $(PLUGIN).so: $(OFILES)
--	$(CC) $(CFLAGS) -Wl,--no-as-needed $(LDFLAGS) $(OFILES) -I../.. -shared -o $@
-+	$(CC) $(LOCAL_CFLAGS) -Wl,--no-as-needed $(LOCAL_LDFLAGS) $(OFILES) -I../.. -shared -o $@
- 
- .PHONY: cleantemps
- cleantemps:

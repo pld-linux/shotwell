@@ -1,7 +1,7 @@
 Summary:	Photo manager for GNOME
 Name:		shotwell
 Version:	0.12.0
-Release:	0.1
+Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	http://yorba.org/download/shotwell/0.12/%{name}-%{version}.tar.bz2
@@ -9,7 +9,6 @@ Source0:	http://yorba.org/download/shotwell/0.12/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-cflags.patch
 URL:		http://yorba.org/shotwell/
 # The dependencies are listed in Makefile
-BuildRequires:	GConf2-devel >= 3.0
 BuildRequires:	bash
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 2.30.0
@@ -28,6 +27,7 @@ BuildRequires:	libusb-compat-devel
 BuildRequires:	libxml2-devel >= 1:2.6.32
 BuildRequires:	m4
 BuildRequires:	pkgconfig
+BuildRequires:	rest-devel >= 0.7
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.5.9
 BuildRequires:	udev-glib-devel >= 145
@@ -36,7 +36,6 @@ BuildRequires:	vala-gexiv2 >= 0.3.92
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
-Requires(post,preun):	GConf2
 Requires:	hicolor-icon-theme
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -48,7 +47,7 @@ mode, and export them to share with others.
 
 %prep
 %setup -q
-#%patch0 -p1
+%patch0 -p1
 
 %build
 # this is not autoconf generated
@@ -61,8 +60,7 @@ mode, and export them to share with others.
 
 %{__make} \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags}" \
-	PLUGIN_CFLAGS="%{rpmcflags}"
+	RPMCFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -70,21 +68,22 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# not in glibc
+rm -r $RPM_BUILD_ROOT%{_localedir}/{ta_IN,te_IN}
+
 %find_lang shotwell --with-gnome
 %find_lang shotwell-extras
 
 cat shotwell.lang shotwell-extras.lang > shotwell-all.lang
 
+rm $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas/gschemas.compiled
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%gconf_schema_install shotwell.schemas
 %update_icon_cache hicolor
 %update_desktop_database
-
-%preun
-%gconf_schema_uninstall shotwell.schemas
 
 %postun
 %update_icon_cache hicolor
