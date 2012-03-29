@@ -1,7 +1,7 @@
 Summary:	Photo manager for GNOME
 Name:		shotwell
 Version:	0.12.1
-Release:	1
+Release:	2
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	http://yorba.org/download/shotwell/0.12/%{name}-%{version}.tar.bz2
@@ -31,9 +31,10 @@ BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.5.9
 BuildRequires:	udev-glib-devel >= 145
 BuildRequires:	vala >= 1:0.15.2
-BuildRequires:	vala-libgee >= 0.5.0
 BuildRequires:	vala-gexiv2 >= 0.3.92
+BuildRequires:	vala-libgee >= 0.5.0
 Requires(post,postun):	desktop-file-utils
+Requires(post,postun):	glib2 >= 1:2.26.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 Requires:	hicolor-icon-theme
@@ -84,10 +85,12 @@ rm -rf $RPM_BUILD_ROOT
 %post
 %update_icon_cache hicolor
 %update_desktop_database
+%glib_compile_schemas
 
 %postun
 %update_icon_cache hicolor
 %update_desktop_database_postun
+%glib_compile_schemas
 
 %files -f shotwell-all.lang
 %defattr(644,root,root,755)
