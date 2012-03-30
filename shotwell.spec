@@ -69,15 +69,16 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# not in glibc
-rm -r $RPM_BUILD_ROOT%{_localedir}/{ta_IN,te_IN}
+# ta_IN is a duplicate of ta
+# te_IN is incomplete duplicate of te
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{ta_IN,te_IN}
 
 %find_lang shotwell --with-gnome
 %find_lang shotwell-extras
 
 cat shotwell.lang shotwell-extras.lang > shotwell-all.lang
 
-rm $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas/gschemas.compiled
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 %clean
 rm -rf $RPM_BUILD_ROOT
