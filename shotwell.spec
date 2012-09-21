@@ -1,11 +1,11 @@
 Summary:	Photo manager for GNOME
 Name:		shotwell
-Version:	0.12.3
+Version:	0.13.0
 Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
-Source0:	http://yorba.org/download/shotwell/0.12/%{name}-%{version}.tar.bz2
-# Source0-md5:	de0e05350f8a7d557092489baf14d039
+Source0:	http://yorba.org/download/shotwell/0.13/%{name}-%{version}.tar.xz
+# Source0-md5:	c1c3e6744e830b4db38219bb470ade4e
 Patch0:		%{name}-cflags.patch
 URL:		http://yorba.org/shotwell/
 # The dependencies are listed in Makefile
@@ -20,7 +20,7 @@ BuildRequires:	gtk-webkit3-devel >= 1.4.0
 BuildRequires:	json-glib-devel >= 0.6.16
 BuildRequires:	libexif-devel >= 0.6.16
 BuildRequires:	libgphoto2-devel >= 2.4.2
-BuildRequires:	libraw-devel >= 0.9.0
+BuildRequires:	libraw-devel >= 0.14.7-2
 BuildRequires:	libsoup-devel >= 2.26.0
 BuildRequires:	libunique3-devel >= 3.0.0
 BuildRequires:	libusb-compat-devel
@@ -31,7 +31,7 @@ BuildRequires:	rest-devel >= 0.7
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.5.9
 BuildRequires:	udev-glib-devel >= 145
-BuildRequires:	vala >= 1:0.15.2
+BuildRequires:	vala >= 1:0.17.2
 BuildRequires:	vala-gexiv2 >= 0.3.92
 BuildRequires:	vala-libgee >= 0.5.0
 Requires(post,postun):	desktop-file-utils
