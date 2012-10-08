@@ -8,6 +8,7 @@ Source0:	http://yorba.org/download/shotwell/0.13/%{name}-%{version}.tar.xz
 # Source0-md5:	71eb1346093705ca2b37c12a21994d14
 Patch0:		%{name}-cflags.patch
 Patch1:		%{name}-libexec.patch
+Patch2:		%{name}-format_string.patch
 URL:		http://yorba.org/shotwell/
 # The dependencies are listed in Makefile
 BuildRequires:	bash
@@ -52,6 +53,7 @@ mode, and export them to share with others.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 # this is not autoconf generated
