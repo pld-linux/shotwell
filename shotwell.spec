@@ -1,12 +1,13 @@
 Summary:	Photo manager for GNOME
 Name:		shotwell
-Version:	0.13.0
+Version:	0.13.1
 Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	http://yorba.org/download/shotwell/0.13/%{name}-%{version}.tar.xz
-# Source0-md5:	c1c3e6744e830b4db38219bb470ade4e
+# Source0-md5:	71eb1346093705ca2b37c12a21994d14
 Patch0:		%{name}-cflags.patch
+Patch1:		%{name}-libexec.patch
 URL:		http://yorba.org/shotwell/
 # The dependencies are listed in Makefile
 BuildRequires:	bash
@@ -15,7 +16,7 @@ BuildRequires:	gexiv2-devel
 BuildRequires:	glib2-devel >= 2.30.0
 BuildRequires:	gstreamer-devel >= 0.10.28
 BuildRequires:	gstreamer-plugins-base-devel >= 0.10.32
-BuildRequires:	gtk+3-devel >= 3.0.11
+BuildRequires:	gtk+3-devel >= 3.4
 BuildRequires:	gtk-webkit3-devel >= 1.4.0
 BuildRequires:	json-glib-devel >= 0.6.16
 BuildRequires:	libexif-devel >= 0.6.16
@@ -50,6 +51,7 @@ mode, and export them to share with others.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 # this is not autoconf generated
@@ -100,6 +102,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/shotwell*
 %{_desktopdir}/%{name}-viewer.desktop
 %{_desktopdir}/%{name}.desktop
+%dir %{_libdir}/%{name}
+%attr(755,root,root) %{_libdir}/%{name}/shotwell-settings-migrator
 %{_datadir}/%{name}
 %{_datadir}/GConf/gsettings/*.convert
 %{_datadir}/glib-2.0/schemas/*.gschema.xml
