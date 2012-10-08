@@ -104,7 +104,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/shotwell*
 %{_desktopdir}/%{name}-viewer.desktop
 %{_desktopdir}/%{name}.desktop
-%dir %{_libdir}/%{name}
 %attr(755,root,root) %{_libdir}/%{name}/shotwell-settings-migrator
 %{_datadir}/%{name}
 %{_datadir}/GConf/gsettings/*.convert
