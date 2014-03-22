@@ -1,14 +1,13 @@
 Summary:	Photo manager for GNOME
 Name:		shotwell
-Version:	0.15.1
-Release:	2
+Version:	0.18.0
+Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
-Source0:	http://yorba.org/download/shotwell/0.15/%{name}-%{version}.tar.xz
-# Source0-md5:	5af4cfb819249a879a4649a9c7d089e5
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/shotwell/0.18/%{name}-%{version}.tar.xz
+# Source0-md5:	856b69fe67bc8bd42a6985e042041daf
 Patch0:		%{name}-cflags.patch
-Patch1:		%{name}-format_string.patch
-URL:		http://yorba.org/shotwell/
+URL:		http://www.yorba.org/projects/shotwell/
 # The dependencies are listed in Makefile
 BuildRequires:	atk-devel
 BuildRequires:	bash
@@ -51,7 +50,6 @@ mode, and export them to share with others.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 # this is not autoconf generated
@@ -72,19 +70,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__mv} $RPM_BUILD_ROOT%{_localedir}/nn{_NO,}
-
-# af_ZA is a duplicate of af
-# id_ID is a duplicate of id
-# ta_IN is a duplicate of ta
-# te_IN is incomplete duplicate of te
-# tr_TR is incomplete duplicate of tr
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{af_ZA,id_ID,ta_IN,te_IN,tr_TR}
-
 %find_lang shotwell --with-gnome
-%find_lang shotwell-extras
-
-cat shotwell.lang shotwell-extras.lang > shotwell-all.lang
 
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
@@ -101,7 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 %update_desktop_database_postun
 %glib_compile_schemas
 
-%files -f shotwell-all.lang
+%files -f shotwell.lang
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING MAINTAINERS NEWS README THANKS
 %attr(755,root,root) %{_bindir}/shotwell*
