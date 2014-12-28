@@ -11,7 +11,7 @@ URL:		http://www.yorba.org/projects/shotwell/
 # The dependencies are listed in Makefile
 BuildRequires:	atk-devel
 BuildRequires:	bash
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	gexiv2-devel
 BuildRequires:	glib2-devel >= 2.32.0
 BuildRequires:	gstreamer-devel >= 1.0.0
