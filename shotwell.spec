@@ -82,7 +82,8 @@ pełnoekranowym oraz eksportować, aby podzielić się nimi z innymi.
 
 %{__make} \
 	CC="%{__cc}" \
-	RPMCFLAGS="%{rpmcflags}"
+	LDFLAGS="%{rpmldflags}"
+	RPMCFLAGS="%{rpmcflags} %{rpmcppflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -126,4 +127,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/builtin/*.png
 %{_libdir}/%{name}/plugins/builtin/*.glade
 %attr(755,root,root) %{_libdir}/%{name}/plugins/builtin/*.so
-%{_iconsdir}/hicolor/*/apps/shotwell.svg
+%{_iconsdir}/hicolor/*x*/apps/shotwell.svg
+%{_iconsdir}/hicolor/scalable/apps/shotwell.svg
