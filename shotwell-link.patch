@@ -1,0 +1,10 @@
+--- shotwell-0.24.1/Makefile.am.linkfix	2016-10-19 22:21:49.397872380 +0200
++++ shotwell-0.24.1/Makefile.am	2016-10-19 22:22:12.748310043 +0200
+@@ -77,6 +77,7 @@ plugins_common_libshotwell_plugin_common
+ 	-I $(top_srcdir)/plugins -I$(top_builddir)/plugins
+ 
+ plugins_common_libshotwell_plugin_common_la_LIBADD = \
++	src/plugins/libplugin.la \
+ 	$(PLUGIN_LIBS)
+ 
+ plugins/shotwell-plugin-dev-1.0.vapi plugins/shotwell-plugin-dev-1.0.h: src_plugins_libplugin_la_vala.stamp
