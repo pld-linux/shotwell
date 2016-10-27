@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_with	unity	# Ubuntu Unity integration
+#
 Summary:	Photo manager for GNOME
 Summary(pl.UTF-8):	Zarządca zdjęć dla GNOME
 Name:		shotwell
@@ -28,18 +32,20 @@ BuildRequires:	libgee-devel >= 0.8.5
 BuildRequires:	libgphoto2-devel >= 2.5.0
 BuildRequires:	libraw-devel >= 0.14.7-2
 BuildRequires:	libsoup-devel >= 2.26.0
+BuildRequires:	libtool >= 2:2.2
+%{?with_unity:BuildRequires:	libunity-devel}
 BuildRequires:	libxml2-devel >= 1:2.6.32
 BuildRequires:	pkgconfig >= 1:0.22
 BuildRequires:	rest-devel >= 0.7
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.5.9
 BuildRequires:	udev-glib-devel >= 1:145
-BuildRequires:	vala >= 1:0.28.0
+BuildRequires:	vala >= 2:0.28.0
 BuildRequires:	vala-gexiv2 >= 0.4.90
 BuildRequires:	vala-libgee >= 0.8.5
 BuildRequires:	yelp-tools
 Requires(post,postun):	desktop-file-utils
-Requires(post,postun):	glib2 >= 1:2.26.0
+Requires(post,postun):	glib2 >= 1:2.32.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 Requires:	glib2 >= 1:2.32.0
@@ -72,16 +78,19 @@ pełnoekranowym oraz eksportować, aby podzielić się nimi z innymi.
 %patch0 -p1
 %patch1 -p1
 
+# force rebuild without _GITVERSION
 %{__rm} src/Resources.c
 
 %build
+%{__libtoolize}
 %{__aclocal} -I m4
-%{__autoheader}
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure \
 	--disable-schemas-compile \
-	--disable-silent-rules
+	--disable-silent-rules \
+	%{?with_unity:--enable-unity-support}
 %{__make}
 
 %install
