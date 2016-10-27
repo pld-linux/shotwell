@@ -1,0 +1,11 @@
+--- shotwell-0.24.1/configure.ac.gitversion	2016-10-24 22:07:04.513398042 +0200
++++ shotwell-0.24.1/configure.ac	2016-10-24 22:07:17.225848614 +0200
+@@ -13,7 +13,7 @@ m4_define([api_version],[major_version])
+ 
+ AX_IS_RELEASE([micro-version])
+ 
+-m4_define([git_version],[m4_esyscmd(git rev-parse HEAD)])
++m4_define([git_version],[])
+ 
+ dnl ***********************************************************************
+ dnl Initialize autoconf

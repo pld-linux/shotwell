@@ -2,12 +2,13 @@ Summary:	Photo manager for GNOME
 Summary(pl.UTF-8):	Zarządca zdjęć dla GNOME
 Name:		shotwell
 Version:	0.24.1
-Release:	1
+Release:	2
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/shotwell/0.24/%{name}-%{version}.tar.xz
 # Source0-md5:	b53b86424564d2f94d56621b1a10a8a4
 Patch0:		%{name}-link.patch
+Patch1:		%{name}-gitversion.patch
 URL:		https://wiki.gnome.org/Apps/Shotwell
 BuildRequires:	appstream-glib-devel
 BuildRequires:	atk-devel
@@ -69,6 +70,9 @@ pełnoekranowym oraz eksportować, aby podzielić się nimi z innymi.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+
+%{__rm} src/Resources.c
 
 %build
 %{__aclocal} -I m4
