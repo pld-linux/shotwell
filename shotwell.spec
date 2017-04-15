@@ -5,12 +5,12 @@
 Summary:	Photo manager for GNOME
 Summary(pl.UTF-8):	Zarządca zdjęć dla GNOME
 Name:		shotwell
-Version:	0.24.5
-Release:	2
+Version:	0.26.1
+Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/shotwell/0.24/%{name}-%{version}.tar.xz
-# Source0-md5:	17e4f81947a2824b00789cfb05512bb8
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/shotwell/0.26/%{name}-%{version}.tar.xz
+# Source0-md5:	1e9cb403756f789a78df6f9fa1e972fa
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-gitversion.patch
 URL:		https://wiki.gnome.org/Apps/Shotwell
@@ -18,16 +18,20 @@ BuildRequires:	appstream-glib-devel
 BuildRequires:	atk-devel
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake >= 1:1.11
+BuildRequires:	cairo-devel
+BuildRequires:	gcr-ui-devel
+BuildRequires:	gdk-pixbuf2-devel
 BuildRequires:	gettext-tools >= 0.19.7
-BuildRequires:	gexiv2-devel >= 0.4.90
-BuildRequires:	glib2-devel >= 1:2.32.0
+BuildRequires:	gexiv2-devel >= 0.10.4
+BuildRequires:	glib2-devel >= 1:2.40.0
 BuildRequires:	gnome-doc-utils
 BuildRequires:	gstreamer-devel >= 1.0.0
 BuildRequires:	gstreamer-plugins-base-devel >= 1.0.0
-BuildRequires:	gtk+3-devel >= 3.12.2
+BuildRequires:	gtk+3-devel >= 3.14.0
 BuildRequires:	gtk-webkit4-devel
 BuildRequires:	json-glib-devel >= 0.6.16
 BuildRequires:	libexif-devel >= 1:0.6.16
+BuildRequires:	libgdata-devel
 BuildRequires:	libgee-devel >= 0.8.5
 BuildRequires:	libgphoto2-devel >= 2.5.0
 BuildRequires:	libraw-devel >= 0.14.7-2
@@ -48,8 +52,9 @@ Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	glib2 >= 1:2.32.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
-Requires:	glib2 >= 1:2.32.0
-Requires:	gtk+3 >= 3.12.2
+Requires:	gexiv2 >= 0.10.4
+Requires:	glib2 >= 1:2.40.0
+Requires:	gtk+3 >= 3.14.0
 Requires:	gtk-webkit4
 Requires:	hicolor-icon-theme
 Requires:	libexif >= 1:0.6.16
@@ -121,6 +126,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING NEWS README THANKS
 %attr(755,root,root) %{_bindir}/shotwell
+%attr(755,root,root) %{_libdir}/libshotwell-authenticator.so*
 %attr(755,root,root) %{_libdir}/libshotwell-plugin-common.so*
 %{_desktopdir}/%{name}-viewer.desktop
 %{_desktopdir}/%{name}.desktop
@@ -128,7 +134,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/shotwell/shotwell-settings-migrator
 %attr(755,root,root) %{_libdir}/shotwell/shotwell-video-thumbnailer
 %{_datadir}/appdata/shotwell.appdata.xml
-%{_datadir}/%{name}
 %{_datadir}/glib-2.0/schemas/org.yorba.shotwell.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.yorba.shotwell-extras.gschema.xml
 %dir %{_libdir}/%{name}/plugins
