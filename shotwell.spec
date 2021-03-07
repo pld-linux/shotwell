@@ -1,14 +1,14 @@
 #
 # Conditional build:
 %bcond_with	apport	# Ubuntu apport hook
-%bcond_without	opencv	# faces detection using OpenCV
+%bcond_with	opencv	# faces detection using OpenCV
 %bcond_with	unity	# Ubuntu Unity integration
 #
 Summary:	Photo manager for GNOME
 Summary(pl.UTF-8):	Zarządca zdjęć dla GNOME
 Name:		shotwell
 Version:	0.30.11
-Release:	1
+Release:	2
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	https://download.gnome.org/sources/shotwell/0.30/%{name}-%{version}.tar.xz
@@ -41,6 +41,7 @@ BuildRequires:	pkgconfig >= 1:0.22
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	sqlite3-devel >= 3.5.9
 BuildRequires:	tar >= 1:1.22
+BuildRequires:	vala-gcr-ui
 BuildRequires:	udev-glib-devel >= 1:145
 BuildRequires:	vala >= 2:0.28.0
 BuildRequires:	vala-gcr >= 3
