@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_with	apport	# Ubuntu apport hook
-%bcond_with	opencv	# faces detection using OpenCV
+%bcond_without	opencv	# faces detection using OpenCV
 %bcond_with	unity	# Ubuntu Unity integration
 #
 Summary:	Photo manager for GNOME
