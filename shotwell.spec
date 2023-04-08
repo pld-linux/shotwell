@@ -7,12 +7,12 @@
 Summary:	Photo manager for GNOME
 Summary(pl.UTF-8):	Zarządca zdjęć dla GNOME
 Name:		shotwell
-Version:	0.30.17
-Release:	2
+Version:	0.30.18
+Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	https://download.gnome.org/sources/shotwell/0.30/%{name}-%{version}.tar.xz
-# Source0-md5:	da1f096b97075ad79b74194fe2d7292e
+# Source0-md5:	d01f32fa3dd19874b5fb8ee2f12b0e10
 Patch0:		%{name}-gphoto2-Add-missing-cheader-attributes-of-delegate-s.patch
 URL:		https://wiki.gnome.org/Apps/Shotwell
 BuildRequires:	cairo-devel
@@ -31,6 +31,8 @@ BuildRequires:	libexif-devel >= 1:0.6.16
 BuildRequires:	libgdata-devel
 BuildRequires:	libgee-devel >= 0.8.5
 BuildRequires:	libgphoto2-devel >= 2.5.0
+BuildRequires:	libportal-devel >= 0.5
+BuildRequires:	libportal-gtk3-devel >= 0.5
 BuildRequires:	libraw-devel >= 0.14.7-2
 BuildRequires:	libsoup-devel >= 2.26.0
 %{?with_unity:BuildRequires:	libunity-devel}
@@ -42,12 +44,14 @@ BuildRequires:	pkgconfig >= 1:0.22
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	sqlite3-devel >= 3.5.9
 BuildRequires:	tar >= 1:1.22
-BuildRequires:	vala-gcr-ui
 BuildRequires:	udev-glib-devel >= 1:145
 BuildRequires:	vala >= 2:0.28.0
 BuildRequires:	vala-gcr >= 3
+BuildRequires:	vala-gcr-ui >= 3
 BuildRequires:	vala-gexiv2 >= 0.11
 BuildRequires:	vala-libgee >= 0.8.5
+BuildRequires:	vala-libportal >= 0.5
+BuildRequires:	vala-libportal-gtk3 >= 0.5
 BuildRequires:	xz
 BuildRequires:	yelp-tools
 Requires(post,postun):	desktop-file-utils
