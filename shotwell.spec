@@ -7,37 +7,38 @@
 Summary:	Photo manager for GNOME
 Summary(pl.UTF-8):	Zarządca zdjęć dla GNOME
 Name:		shotwell
-Version:	0.30.18
+Version:	0.32.1
 Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
-Source0:	https://download.gnome.org/sources/shotwell/0.30/%{name}-%{version}.tar.xz
-# Source0-md5:	d01f32fa3dd19874b5fb8ee2f12b0e10
-Patch0:		%{name}-gphoto2-Add-missing-cheader-attributes-of-delegate-s.patch
+Source0:	https://download.gnome.org/sources/shotwell/0.32/%{name}-%{version}.tar.xz
+# Source0-md5:	0ae8ff1248a12f81b4c98ff51ee84167
+Patch0:		%{name}-unity.patch
 URL:		https://wiki.gnome.org/Apps/Shotwell
 BuildRequires:	cairo-devel
 BuildRequires:	gcr-devel >= 3
 BuildRequires:	gcr-ui-devel >= 3
 BuildRequires:	gdk-pixbuf2-devel >= 2.0
 BuildRequires:	gettext-tools >= 0.19.7
-BuildRequires:	gexiv2-devel >= 0.11
+BuildRequires:	gexiv2-devel >= 0.12.3
 BuildRequires:	glib2-devel >= 1:2.40.0
-BuildRequires:	gstreamer-devel >= 1.0.0
-BuildRequires:	gstreamer-plugins-base-devel >= 1.0.0
+BuildRequires:	gstreamer-devel >= 1.20
+BuildRequires:	gstreamer-plugins-base-devel >= 1.20
 BuildRequires:	gtk+3-devel >= 3.22
-BuildRequires:	gtk-webkit4-devel >= 2.26
+BuildRequires:	gtk-webkit4.1-devel >= 2.26
 BuildRequires:	json-glib-devel >= 1.0
 BuildRequires:	libexif-devel >= 1:0.6.16
-BuildRequires:	libgdata-devel
 BuildRequires:	libgee-devel >= 0.8.5
 BuildRequires:	libgphoto2-devel >= 2.5.0
 BuildRequires:	libportal-devel >= 0.5
 BuildRequires:	libportal-gtk3-devel >= 0.5
 BuildRequires:	libraw-devel >= 0.14.7-2
-BuildRequires:	libsoup-devel >= 2.26.0
+BuildRequires:	libsecret-devel
+BuildRequires:	libsoup3-devel >= 3.0
 %{?with_unity:BuildRequires:	libunity-devel}
+BuildRequires:	libwebp-devel
 BuildRequires:	libxml2-devel >= 1:2.6.32
-BuildRequires:	meson >= 0.43.0
+BuildRequires:	meson >= 0.59.0
 BuildRequires:	ninja >= 1.5
 %{?with_opencv:BuildRequires:	opencv-devel >= 1:3.4.0}
 BuildRequires:	pkgconfig >= 1:0.22
@@ -48,27 +49,28 @@ BuildRequires:	udev-glib-devel >= 1:145
 BuildRequires:	vala >= 2:0.28.0
 BuildRequires:	vala-gcr >= 3
 BuildRequires:	vala-gcr-ui >= 3
-BuildRequires:	vala-gexiv2 >= 0.11
+BuildRequires:	vala-gexiv2 >= 0.12.3
 BuildRequires:	vala-libgee >= 0.8.5
 BuildRequires:	vala-libportal >= 0.5
 BuildRequires:	vala-libportal-gtk3 >= 0.5
+%{?with_unity:BuildRequires:	vala-libunity}
 BuildRequires:	xz
 BuildRequires:	yelp-tools
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	glib2 >= 1:2.40.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
-Requires:	gexiv2 >= 0.11
+Requires:	gexiv2 >= 0.12.3
 Requires:	glib2 >= 1:2.40.0
 Requires:	gtk+3 >= 3.22
-Requires:	gtk-webkit4 >= 2.26
+Requires:	gtk-webkit4.1 >= 2.26
 Requires:	hicolor-icon-theme
 Requires:	json-glib >= 1.0
 Requires:	libexif >= 1:0.6.16
 Requires:	libgee >= 0.8.5
 Requires:	libgphoto2 >= 2.5.0
 Requires:	libraw >= 0.14.7-2
-Requires:	libsoup >= 2.26.0
+Requires:	libsoup3 >= 3.0
 Requires:	libxml2 >= 1:2.6.32
 %{?with_opencv:Requires:	opencv >= 1:3.4.0}
 Requires:	sqlite3 >= 3.5.9
@@ -94,9 +96,9 @@ pełnoekranowym oraz eksportować, aby podzielić się nimi z innymi.
 %build
 %meson build \
 	--default-library=shared \
-	%{?with_opencv:-Dface-detection=true} \
-	%{!?with_apport:-Dinstall-apport-hook=false} \
-	%{?with_unity:-Dunity-support=true}
+	%{?with_opencv:-Dface_detection=true} \
+	%{!?with_apport:-Dinstall_apport_hook=false} \
+	%{?with_unity:-Dunity_support=true}
 
 %ninja_build -C build
 
@@ -147,7 +149,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/%{name}/plugins
 %dir %{_libdir}/%{name}/plugins/builtin
 %attr(755,root,root) %{_libdir}/%{name}/plugins/builtin/libshotwell-publishing.so
-%attr(755,root,root) %{_libdir}/%{name}/plugins/builtin/libshotwell-publishing-extras.so
 %attr(755,root,root) %{_libdir}/%{name}/plugins/builtin/libshotwell-transitions.so
 %if %{with opencv}
 %dir %{_datadir}/%{name}
@@ -156,11 +157,14 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with apport}
 %{_datadir}/apport/package-hooks/shotwell.py
 %endif
+%{_datadir}/glib-2.0/schemas/org.gnome.shotwell.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.shotwell-extras.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.yorba.shotwell.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.yorba.shotwell-extras.gschema.xml
-%{_datadir}/metainfo/shotwell.appdata.xml
-%{_desktopdir}/shotwell.desktop
-%{_desktopdir}/shotwell-viewer.desktop
-%{_iconsdir}/hicolor/*x*/apps/shotwell.png
-%{_iconsdir}/hicolor/symbolic/apps/shotwell-symbolic.svg
+%{_datadir}/metainfo/org.gnome.Shotwell.appdata.xml
+%{_desktopdir}/org.gnome.Shotwell.desktop
+%{_desktopdir}/org.gnome.Shotwell-Profile-Browser.desktop
+%{_desktopdir}/org.gnome.Shotwell-Viewer.desktop
+%{_iconsdir}/hicolor/*x*/apps/org.gnome.Shotwell.png
+%{_iconsdir}/hicolor/symbolic/apps/org.gnome.Shotwell-symbolic.svg
 %{_mandir}/man1/shotwell.1*

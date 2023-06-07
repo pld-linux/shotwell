@@ -1,0 +1,18 @@
+--- shotwell-0.32.1/src/meson.build.orig	2023-05-09 22:44:26.000000000 +0200
++++ shotwell-0.32.1/src/meson.build	2023-06-07 06:11:50.635547904 +0200
+@@ -31,10 +31,14 @@ face_sources = (['faces/FacesBranch.vala
+                      'faces/FacesTool.vala'])
+ 
+ shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
+-                 gstreamer_pbu, gudev, gexiv2, gmodule, unity,
++                 gstreamer_pbu, gudev, gexiv2, gmodule,
+                  libraw, libexif, sw_plugin, webpdemux, webp, version,
+                  portal]
+ 
++if unity.found() and get_option('unity_support')
++  shotwell_deps += [unity]
++endif
++
+ subdir('metadata')
+ subdir('publishing')
+ subdir('video-support')
