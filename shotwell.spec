@@ -53,6 +53,7 @@ BuildRequires:	vala-gexiv2 >= 0.12.3
 BuildRequires:	vala-libgee >= 0.8.5
 BuildRequires:	vala-libportal >= 0.5
 BuildRequires:	vala-libportal-gtk3 >= 0.5
+BuildRequires:	vala-libsecret
 %{?with_unity:BuildRequires:	vala-libunity}
 BuildRequires:	xz
 BuildRequires:	yelp-tools
@@ -152,7 +153,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/%{name}/plugins/builtin/libshotwell-transitions.so
 %if %{with opencv}
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/facedetect-haarcascade.xml
+%{_datadir}/%{name}/facedetect
+%{_datadir}/dbus-1/services/org.gnome.Shotwell.Faces1.service
 %endif
 %if %{with apport}
 %{_datadir}/apport/package-hooks/shotwell.py
