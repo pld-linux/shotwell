@@ -7,12 +7,12 @@
 Summary:	Photo manager for GNOME
 Summary(pl.UTF-8):	Zarządca zdjęć dla GNOME
 Name:		shotwell
-Version:	0.32.3
+Version:	0.32.4
 Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	https://download.gnome.org/sources/shotwell/0.32/%{name}-%{version}.tar.xz
-# Source0-md5:	754234fee050bf3cb4fc6298c2cd25a3
+# Source0-md5:	05520cd8add71a44d5ab2e3acd2ef595
 Patch0:		%{name}-unity.patch
 URL:		https://wiki.gnome.org/Apps/Shotwell
 BuildRequires:	cairo-devel
@@ -148,6 +148,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libexecdir}/%{name}/shotwell-facedetect
 %endif
 %attr(755,root,root) %{_libexecdir}/%{name}/shotwell-settings-migrator
+%attr(755,root,root) %{_libexecdir}/%{name}/shotwell-video-metadata-handler
 %attr(755,root,root) %{_libexecdir}/%{name}/shotwell-video-thumbnailer
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plugins
@@ -168,7 +169,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/glib-2.0/schemas/org.yorba.shotwell-extras.gschema.xml
 %{_datadir}/metainfo/org.gnome.Shotwell.appdata.xml
 %{_desktopdir}/org.gnome.Shotwell.desktop
-%{_desktopdir}/org.gnome.Shotwell-Profile-Browser.desktop
 %{_desktopdir}/org.gnome.Shotwell-Viewer.desktop
 %{_iconsdir}/hicolor/*x*/apps/org.gnome.Shotwell.png
 %{_iconsdir}/hicolor/symbolic/apps/org.gnome.Shotwell-symbolic.svg
