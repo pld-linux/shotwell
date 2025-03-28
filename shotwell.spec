@@ -42,7 +42,7 @@ BuildRequires:	meson >= 0.59.0
 BuildRequires:	ninja >= 1.5
 %{?with_opencv:BuildRequires:	opencv-devel >= 1:3.4.0}
 BuildRequires:	pkgconfig >= 1:0.22
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	sqlite3-devel >= 3.5.9
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	udev-glib-devel >= 1:145
@@ -95,18 +95,18 @@ pełnoekranowym oraz eksportować, aby podzielić się nimi z innymi.
 %patch -P0 -p1
 
 %build
-%meson build \
+%meson \
 	--default-library=shared \
 	%{?with_opencv:-Dface_detection=true} \
 	%{!?with_apport:-Dinstall_apport_hook=false} \
 	%{?with_unity:-Dunity_support=true}
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 # API not exported, so no need for development symlinks
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libshotwell-*.so
