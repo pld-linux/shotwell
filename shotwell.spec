@@ -7,12 +7,12 @@
 Summary:	Photo manager for GNOME
 Summary(pl.UTF-8):	Zarządca zdjęć dla GNOME
 Name:		shotwell
-Version:	0.32.13
+Version:	0.32.14
 Release:	1
 License:	LGPL v2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	https://download.gnome.org/sources/shotwell/0.32/%{name}-%{version}.tar.xz
-# Source0-md5:	6e78357da2ac3a46d2a5f1cbc285e70c
+# Source0-md5:	8a0b79ec4507a7fb5069d891e6cebe35
 Patch0:		%{name}-unity.patch
 URL:		https://wiki.gnome.org/Apps/Shotwell
 BuildRequires:	cairo-devel
@@ -136,11 +136,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS COPYING MAINTAINERS NEWS README.md THANKS
 %attr(755,root,root) %{_bindir}/shotwell
 %attr(755,root,root) %{_libdir}/libshotwell-authenticator.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libshotwell-authenticator.so.0
+%ghost %{_libdir}/libshotwell-authenticator.so.0
 %attr(755,root,root) %{_libdir}/libshotwell-plugin-common.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libshotwell-plugin-common.so.0
+%ghost %{_libdir}/libshotwell-plugin-common.so.0
 %attr(755,root,root) %{_libdir}/libshotwell-plugin-dev-1.0.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libshotwell-plugin-dev-1.0.so.0
+%ghost %{_libdir}/libshotwell-plugin-dev-1.0.so.0
 %if "%{_libexecdir}" != "%{_libdir}"
 %dir %{_libexecdir}/%{name}
 %endif
